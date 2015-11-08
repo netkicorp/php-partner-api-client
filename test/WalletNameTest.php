@@ -163,9 +163,9 @@ class WalletNameTest extends PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo('partnerId'),
                 $this->equalTo('apiKey'),
-                $this->equalTo('apiUrl/v1/partner/walletname'),
+                $this->equalTo('apiUrl/v1/partner/walletname/domain_name/id'),
                 $this->equalTo('DELETE'),
-                $this->equalTo($fullRequest)
+                $this->equalTo(null)
             );
 
         // Setup object in test

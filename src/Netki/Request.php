@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: frank
- * Date: 11/3/15
- * Time: 5:44 PM
- */
 
 namespace Netki;
 

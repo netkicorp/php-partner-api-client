@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: frank
- * Date: 11/4/15
- * Time: 5:37 PM
- */
 
 namespace Netki;
 
@@ -160,9 +154,9 @@ class WalletName extends BaseObject
         $this->requestor->process_request(
             $this->partnerId,
             $this->apiKey,
-            $this->apiUrl . '/v1/partner/walletname',
+            $this->apiUrl . '/v1/partner/walletname/' . $this->domainName . '/' . $this->id,
             'DELETE',
-            $fullRequest
+            null
         );
     }
 }
