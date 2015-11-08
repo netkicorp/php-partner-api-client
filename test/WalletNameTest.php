@@ -151,11 +151,6 @@ class WalletNameTest extends PHPUnit_Framework_TestCase
 
     public function testDelete()
     {
-        // Setup expected DELETE data to process_request call
-        $walletData = array();
-        $walletData['domain_name'] = 'domain_name';
-        $walletData['id'] = 'id';
-        $fullRequest = array('wallet_names'=>array($walletData));
 
         // Setup process_request mock for test
         $this->processRequestMock->expects($this->once())

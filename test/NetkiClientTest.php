@@ -480,7 +480,7 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('apiUrl', $response->get_apiUrl());
     }
 
-    public function testGetDomainsOneDomain()
+    public function testGetDomains()
     {
         // Setup Mock API Response
         $mockCreateDomainResponse = new stdClass();
@@ -517,58 +517,10 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
         $client->set_requestor($this->processRequestMock);
 
         // Execute test
-        $response = $client->get_domains('domain_name');
+        $response = $client->get_domains();
 
         // Validate values are properly set in object in test
         $this->assertEquals($mockDomain->domain_name, $response[0]->name);
-    }
-
-    public function testGetDomainsTwoDomains()
-    {
-        // Setup Mock API Response
-        $mockCreateDomainResponse = new stdClass();
-        $mockCreateDomainResponse->domains = array();
-        $mockDomain = new stdClass();
-        $mockDomain->domain_name = 'domain_name';
-        $mockCreateDomainResponse->domains[] = $mockDomain;
-        $mockCreateDomainResponse->domains[] = $mockDomain;
-
-        $mockLoadStatusResponse = new stdClass();
-        $mockLoadStatusResponse->status = 'status';
-        $mockLoadStatusResponse->delegation_status = 'delegation_status';
-        $mockLoadStatusResponse->delegation_message = 'delegation_message';
-        $mockLoadStatusResponse->wallet_name_count = 10;
-
-        $mockLoadDnssecResponse = new stdClass();
-        $mockLoadDnssecResponse->public_key_signing_key = 'pksk';
-        $mockLoadDnssecResponse->ds_records = array('record1', 'record2');
-        $mockLoadDnssecResponse->nameservers = array('ns1', 'ns2');
-        $mockLoadDnssecResponse->nextroll_date = '2016-01-11 14:30:10';
-
-        $map = array(
-            array('partnerId', 'apiKey', 'apiUrl/api/domain', 'GET', null, $mockCreateDomainResponse),
-            array('partnerId', 'apiKey', 'apiUrl/v1/partner/domain/domain_name', 'GET', null, $mockLoadStatusResponse),
-            array('partnerId', 'apiKey', 'apiUrl/v1/partner/domain/dnssec/domain_name', 'GET', null, $mockLoadDnssecResponse),
-            array('partnerId', 'apiKey', 'apiUrl/v1/partner/domain/domain_name', 'GET', null, $mockLoadStatusResponse),
-            array('partnerId', 'apiKey', 'apiUrl/v1/partner/domain/dnssec/domain_name', 'GET', null, $mockLoadDnssecResponse)
-        );
-
-        // Setup process_request mock for test
-        $this->processRequestMock->expects($this->exactly(5))
-            ->method('process_request')
-            ->will($this->returnValueMap($map));
-
-        // Setup object in test
-        $client = new Netki\NetkiClient('partnerId', 'apiKey', 'apiUrl');
-        $client->set_requestor($this->processRequestMock);
-
-        // Execute test
-        $response = $client->get_domains('domain_name');
-        $this->assertEquals(2, count($response));
-
-        // Validate values are properly set in object in test
-        $this->assertEquals($mockDomain->domain_name, $response[0]->name);
-        $this->assertEquals($mockDomain->domain_name, $response[1]->name);
     }
 
     public function testGetDomainsNoDomains()
@@ -591,7 +543,7 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
         $client->set_requestor($this->processRequestMock);
 
         // Execute test
-        $response = $client->get_domains('domain_name');
+        $response = $client->get_domains();
         $this->assertEquals(array(), $response);
     }
 }

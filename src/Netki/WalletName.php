@@ -145,12 +145,6 @@ class WalletName extends BaseObject
             throw new \Exception ('Unable to Delete Object that Does Not Exist Remotely');
         }
 
-        $walletData = array();
-        $walletData['domain_name'] = $this->domainName;
-        $walletData['id'] = $this->id;
-
-        $fullRequest = array('wallet_names' => array($walletData));
-
         $this->requestor->process_request(
             $this->partnerId,
             $this->apiKey,
