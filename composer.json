@@ -11,6 +11,7 @@
     }
   ],
   "require": {
+    "php": ">=5.6.0",
     "rmccue/requests": "v1.6.1"
   },
   "autoload": {
