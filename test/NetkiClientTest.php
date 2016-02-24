@@ -126,7 +126,7 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
             ->with(
                 $this->equalTo('partnerId'),
                 $this->equalTo('apiKey'),
-                $this->equalTo('apiUrl/v1/partner/walletname?domain_name=my_domain&external_id=extId'),
+                $this->equalTo('apiUrl/v1/partner/walletname?domain_name=my_domain&external_id=ext%3DId'),
                 $this->equalTo('GET'),
                 $this->equalTo(null)
             )
@@ -137,7 +137,7 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
         $client->set_requestor($this->processRequestMock);
 
         // Execute test
-        $response = $client->get_wallet_names('my_domain', 'extId');
+        $response = $client->get_wallet_names('my_domain', 'ext=Id');
 
         // Validate values are properly set in object in test
         $testData = $this->mockResponse->wallet_names[0];

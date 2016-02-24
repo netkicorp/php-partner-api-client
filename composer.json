@@ -1,7 +1,7 @@
 {
   "name": "netki/netki-partner-client",
   "description": "This is a PHP implementation of the Netki Partner API Client.",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "minimum-stability": "stable",
   "license": "BSD3",
   "authors": [

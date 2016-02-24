@@ -57,7 +57,7 @@ class NetkiClient
 
         if (!empty($externalId))
         {
-            $args[] = 'external_id=' . $externalId;
+            $args[] = 'external_id=' . urlencode($externalId);
         }
 
         $uri = $this->apiUrl . "/v1/partner/walletname";
