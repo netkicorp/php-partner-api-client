@@ -52,5 +52,12 @@ $filteredWalletNames = $client->get_wallet_names(null, "externalId");
 // Get all Wallet Names for a Domain matching an External ID
 $filteredWalletNames = $client->get_wallet_names("testdomain.com", "externalId");
 
+// Get a Single Wallet Name by External ID and Change Name
+$findOneWalletName = $client->get_wallet_names(null, "Wallet1ExternalId")
+if(count($findOneWalletName) == 1) {
+    $findOneWalletName[0]->$name = 'newname';
+    $findOneWalletName[0]->save();
+}
+
 // Delete Wallet Name
 $walletName->delete();
