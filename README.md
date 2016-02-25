@@ -1,4 +1,4 @@
-# Netki Wallet Name Resolver
+# Netki PHP Partner Library
 
 This is the Netki Partner library written in PHP. It allows you to use the Netki Partner API to CRUD all of your partner data:
 
