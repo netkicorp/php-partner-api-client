@@ -12,6 +12,7 @@ class NetkiClient
     private $partnerId;
     private $apiKey;
     private $apiUrl = 'https://api.netki.com';
+    private $lookupUrl = 'https://pubapi.netki.com/api/wallet_lookup/';
     private $requestor;
 
     /**
@@ -20,12 +21,14 @@ class NetkiClient
      * @param string $partnerId
      * @param string $apiKey
      * @param string $apiUrl
+     * @param optional string $lookupUrl
      */
-    public function __construct($partnerId, $apiKey, $apiUrl)
+    public function __construct($partnerId, $apiKey, $apiUrl, $lookupUrl = null)
     {
         $this->partnerId = $partnerId;
         $this->apiKey = $apiKey;
         $this->apiUrl = empty($apiUrl) ? $this->apiUrl : $apiUrl;
+        $this->lookupUrl = empty($lookupUrl) ? $this->lookupUrl : $lookupUrl;
         $this->requestor = new Request();
     }
 
@@ -259,4 +262,32 @@ class NetkiClient
 
         return $domains;
     }
+
+    /**
+     * Lookup Any Wallet Name
+     *
+     * @param string $walletName
+     * @param string $currency
+     *
+     * @return string JSON
+     * @throws \Exception For Any Non Success Case
+     */
+    public function lookup_wallet_name($walletName, $currency)
+    {
+        return $this->requestor->process_request(null, null, $this->lookupUrl . $walletName . '/' . $currency, 'GET', null);
+    }
+
+    /**
+     * Lookup Supported Currencies For Any Wallet Name
+     *
+     * @param string $walletName
+     *
+     * @return string JSON
+     * @throws \Exception For Any Non Success Case
+     */
+    public function get_wallet_name_currencies($walletName)
+    {
+        return $this->requestor->process_request(null, null, $this->lookupUrl . $walletName . '/available_currencies', 'GET', null);
+    }
+
 }

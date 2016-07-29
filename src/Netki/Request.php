@@ -41,12 +41,6 @@ class Request
             return array();
         }
 
-        if ($response->headers->getValues('content-type')[0] != 'application/json')
-        {
-            throw new \Exception('HTTP Response Contains Invalid Content-Type: ' .
-                $response->headers->getValues('content-type')[0]);
-        }
-
         $responseData = json_decode($response->body);
 
         if (empty($responseData))

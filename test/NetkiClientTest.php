@@ -546,4 +546,32 @@ class NetkiClientTest extends PHPUnit_Framework_TestCase
         $response = $client->get_domains();
         $this->assertEquals(array(), $response);
     }
+
+    /*
+    * Wallet Name Lookup
+    */
+    public function testLookupWalletNameGoRight() {
+        // Setup process_request mock for test
+        $this->processRequestMock->expects($this->once())
+            ->method('process_request')
+            ->with(
+                $this->equalTo(null),
+                $this->equalTo(null),
+                $this->equalTo('lookupUrl/walletName/currency'),
+                $this->equalTo('GET'),
+                $this->equalTo(null)
+            )
+            ->willReturn($this->mockResponse);
+
+        // Setup object in test
+        $client = new Netki\NetkiClient('partnerId', 'apiKey', 'apiUrl', 'lookupUrl/');
+        $client->set_requestor($this->processRequestMock);
+
+        // Execute test
+        $response = $client->lookup_wallet_name('walletName', 'currency');
+
+        // Validate Result
+        $this->assertEquals($this->mockResponse, $response);
+    }
+
 }

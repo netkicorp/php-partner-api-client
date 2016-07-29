@@ -185,40 +185,6 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->fail('Expected exception to be raised.');
     }
 
-    public function testRequestInvalidContentTypeHeader()
-    {
-        // Setup HTTP Mock
-        $this->http->mock
-            ->when()
-            ->methodIs('GET')
-            ->pathIs('/v1/partner/walletname')
-            ->then()
-            ->statusCode(200)
-            ->header('content-type', 'text/html')
-            ->body(json_encode(array('success'=>true)))
-            ->end();
-        $this->http->setUp();
-
-        // Call Function in Test
-        $client = new Netki\Request();
-        try
-        {
-            $client->process_request(
-                RequestTest::PARTNERID,
-                RequestTest::APIKEY,
-                RequestTest::APIURL,
-                'GET',
-                null
-            );
-        }
-        catch (Exception $e)
-        {
-            $this->assertEquals('HTTP Response Contains Invalid Content-Type: text/html; charset=UTF-8', $e->getMessage());
-            return;
-        }
-        $this->fail('Expected exception to be raised.');
-    }
-
     public function testRequestErrorParsingJSON()
     {
         // Setup HTTP Mock
